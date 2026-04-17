@@ -27,11 +27,11 @@ export default function LeadershipSection() {
             
             <div className="relative z-10 shrink-0">
               <div className="absolute inset-0 bg-gradient-to-tr from-primary to-accent rounded-full blur-md opacity-20 group-hover:opacity-60 transition-opacity duration-500" />
-              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=200&auto=format&fit=crop" className="relative w-28 h-28 rounded-full object-cover shrink-0 ring-4 ring-white shadow-xl" alt="Chairman" />
+              <img src="chairman.jpeg" className="relative w-28 h-28 rounded-full object-cover shrink-0 ring-4 ring-white shadow-xl" alt="Chairman" />
             </div>
             
             <div className="relative z-10">
-              <h4 className="font-extrabold text-2xl text-navy mb-1 group-hover:text-primary transition-colors duration-300">Mr. Lila Mani Pathak</h4>
+              <h4 className="font-extrabold text-2xl text-navy mb-1 group-hover:text-primary transition-colors duration-300">Dr. Bishal Kumar Bhandari</h4>
               <p className="text-accent uppercase font-bold tracking-wider text-xs mb-6">Chairman</p>
               <p className="text-gray-600 italic text-base md:text-lg leading-relaxed relative">
                 <span className="text-primary text-2xl leading-none absolute -left-4 -top-2">"</span>
@@ -49,12 +49,12 @@ export default function LeadershipSection() {
             
             <div className="relative z-10 shrink-0">
               <div className="absolute inset-0 bg-gradient-to-tr from-accent to-white rounded-full blur-md opacity-20 group-hover:opacity-60 transition-opacity duration-500" />
-              <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200&auto=format&fit=crop" className="relative w-28 h-28 rounded-full object-cover shrink-0 ring-4 ring-white/10 shadow-2xl" alt="CEO" />
+              <img src="executive.jpeg" className="relative w-28 h-28 rounded-full object-cover shrink-0 ring-4 ring-white/10 shadow-2xl" alt="CEO" />
             </div>
             
             <div className="relative z-10">
-              <h4 className="font-extrabold text-2xl text-white mb-1 group-hover:text-accent transition-colors duration-300">Mr. Laxmi Bhattarai</h4>
-              <p className="text-primary-light text-accent uppercase font-bold tracking-wider text-xs mb-6">CEO</p>
+              <h4 className="font-extrabold text-2xl text-white mb-1 group-hover:text-accent transition-colors duration-300">Prashant Chaulagain</h4>
+              <p className="text-primary-light text-accent uppercase font-bold tracking-wider text-xs mb-6">Executive Director</p>
               <p className="text-gray-300 italic text-base md:text-lg leading-relaxed relative">
                 <span className="text-accent text-2xl leading-none absolute -left-4 -top-2">"</span>
                 Our team combines expertise in hydropower and capital markets to drive economic growth and promote sustainability. Together, we are on a journey toward absolute energy self-sufficiency.

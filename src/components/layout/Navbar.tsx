@@ -17,9 +17,11 @@ export default function Navbar() {
 
   const links = [
     { name: "Home", path: "/" },
+    {name: "About us", path: "/about-us" },
     { name: "Site Works", path: "/site-works-and-access" },
     { name: "Public Notice", path: "/public-notice" },
     { name: "Vacancy", path: "/vacancy" },
+    
   ];
 
   return (

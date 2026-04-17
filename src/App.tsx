@@ -7,6 +7,7 @@ import Contact from "@/pages/Contact";
 import Vacancy from "@/pages/Vacancy";
 import PublicNotice from "@/pages/PublicNotice";
 import ScrollToTop from "@/utils/ScrollToTop";
+import AboutUs from "./pages/AboutUs";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/site-works-and-access" element={<SiteWorks />} />
+            <Route path="/about-us" element={<AboutUs />}/>
             <Route path="/contact-us" element={<Contact />} />
             <Route path="/vacancy" element={<Vacancy />} />
             <Route path="/public-notice" element={<PublicNotice />} />
