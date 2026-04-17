@@ -1,15 +1,15 @@
 import { Container } from "@/components/layout/Container";
-import { FadeIn } from "@/components/animations/FadeIn";
+import { PageHeader } from "@/components/ui/PageHeader";
 import NoticeList from "@/sections/public-notice/NoticeList";
 
 export default function PublicNotice() {
   return (
-    <div className="pt-32 pb-20 bg-white min-h-screen">
-      <Container>
-        <FadeIn>
-          <h1 className="text-4xl md:text-5xl font-bold text-navy mb-4">Public Notices</h1>
-          <p className="text-gray-600 text-lg mb-12">Official announcements, press releases, and updates regarding our operations.</p>
-        </FadeIn>
+    <div className="bg-white pb-24">
+      <PageHeader 
+        title="Public Notices" 
+        backgroundImage="https://images.unsplash.com/photo-1542614391-4475560b37ea?q=80&w=1920&auto=format&fit=crop"
+      />
+      <Container className="mt-20">
         <NoticeList />
       </Container>
     </div>
