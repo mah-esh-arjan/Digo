@@ -8,9 +8,13 @@ export default function Footer() {
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           <div className="md:col-span-1">
-            <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
-              <div className="w-6 h-6 bg-accent rounded-sm"></div> Digourja
-            </h3>
+            <Link to="/" className="flex items-center gap-2 mb-6 group">
+              <img src="/image.png" alt="Digo Urja Bikas Logo" className="w-10 h-10 rounded-lg bg-white p-1 shadow-shadow-lg transition-transform group-hover:scale-110" />
+              <div className="flex flex-col">
+                <span className="text-lg font-bold leading-none">DIGO URJA BIKAS</span>
+                <span className="text-[8px] font-medium tracking-wider text-gray-400">COMPANY PVT. LTD.</span>
+              </div>
+            </Link>
             <p className="text-gray-400 text-sm leading-relaxed">
               Enhancing Nepal’s energy security by utilizing renewable hydro resources. Empowering the nation with sustainable, reliable, and clean electricity.
             </p>
@@ -44,7 +48,7 @@ export default function Footer() {
         </div>
         
         <div className="border-t border-gray-800 pt-8 text-center text-xs text-gray-500">
-          © {new Date().getFullYear()} Digourja Ltd. All rights reserved. Designed for Nepal.
+          © {new Date().getFullYear()} Digo Urja Bikas Company Pvt. Ltd. All rights reserved. Designed for Nepal.
         </div>
       </Container>
     </footer>

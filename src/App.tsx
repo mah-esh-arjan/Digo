@@ -10,6 +10,7 @@ import ScrollToTop from "@/utils/ScrollToTop";
 import AboutUs from "./pages/AboutUs";
 import Gallery from "./pages/Gallery";
 import Downloads from "./pages/Downloads";
+import ProjectDetail from "./pages/ProjectDetail";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about-us" element={<AboutUs />}/>
+            <Route path="/project-details" element={<ProjectDetail />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/downloads" element={<Downloads />} />
             <Route path="/contact-us" element={<Contact />} />

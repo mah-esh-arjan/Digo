@@ -49,7 +49,7 @@ export default function InvestmentSection() {
               <span className="text-gradient">Green Wealth</span>
             </h2>
             <p className="text-gray-400 text-lg md:text-xl font-light mb-10 max-w-xl leading-relaxed">
-              Digourja offers a unique entry point into Nepal's surging energy market. With secured power purchase agreements and state-backed guarantees, we turn natural flow into sustainable financial growth.
+              Digo Urja Bikas offers a unique entry point into Nepal's surging energy market. With secured power purchase agreements and state-backed guarantees, we turn natural flow into sustainable financial growth.
             </p>
             <div className="flex flex-wrap gap-4">
               <Button size="lg" className="bg-white text-navy hover:bg-accent hover:text-navy rounded-full font-bold px-8 h-14 transition-all">

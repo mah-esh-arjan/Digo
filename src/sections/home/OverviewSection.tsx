@@ -5,10 +5,10 @@ import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const stats = [
-  { icon: MapPin, label: "Location", value: "Dolakha", isNumber: false },
-  { icon: Zap, label: "Capacity", value: 3, suffix: " MW", isNumber: true },
-  { icon: Droplets, label: "Catchment Area", value: 28.5, suffix: " km²", isNumber: true },
-  { icon: Activity, label: "Annual Energy", value: 16.96, suffix: " GWh", isNumber: true },
+  { icon: MapPin, label: "Location", value: "Baglung", isNumber: false },
+  { icon: Zap, label: "Capacity", value: 7.96, suffix: " MW", isNumber: true },
+  { icon: Droplets, label: "Catchment Area", value: 118.53, suffix: " km²", isNumber: true },
+  { icon: Activity, label: "Annual Energy", value: 40.71, suffix: " GWh", isNumber: true },
 ];
 
 function Counter({ from = 0, to, duration = 2, decimals = 0 }: { from?: number, to: number, duration?: number, decimals?: number }) {

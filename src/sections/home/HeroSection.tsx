@@ -4,9 +4,9 @@ export default function HomeHero() {
   return (
     <HeroSection
       logo={{
-        url: "/logo.jpg",
-        alt: "Digourja Logo",
-        text: "Digourja"
+        url: "/image.png",
+        alt: "Digo Urja Bikas Logo",
+        text: "DIGO URJA BIKAS COMPANY PVT. LTD."
       }}
       slogan="POWERING THE FUTURE OF NEPAL"
       title={
@@ -16,7 +16,7 @@ export default function HomeHero() {
           For Nepal.
         </>
       }
-      subtitle="Digourja Ltd. harnesses the pure power of the Kalinchowk Khola. Join us in flowing towards a sustainable, energy-rich tomorrow."
+      subtitle="Digo Urja Bikas Company Pvt. Ltd. harnesses the pure power of the Kalinchowk Khola. Join us in flowing towards a sustainable, energy-rich tomorrow."
       callToAction={{
         text: "EXPLORE INVESTMENT",
         href: "#investment",

@@ -24,7 +24,7 @@ export default function WhyInvestSection() {
           </div>
           <h2 className="text-4xl md:text-5xl font-extrabold text-navy tracking-tight mb-6">Why Invest With Us</h2>
           <p className="text-gray-600 text-lg leading-relaxed">
-            Investing in Digourja means placing your capital where high demand meets robust guarantees and profound ecological impact.
+            Investing in Digo Urja Bikas means placing your capital where high demand meets robust guarantees and profound ecological impact.
           </p>
         </FadeIn>
 

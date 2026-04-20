@@ -18,6 +18,7 @@ export default function Navbar() {
   const links = [
     { name: "Home", path: "/" },
     {name: "About us", path: "/about-us" },
+    { name: "Projects", path: "/project-details" },
     { name: "Gallery", path: "/gallery" },
     { name: "Public Notice", path: "/public-notice" },
     { name: "Vacancy", path: "/vacancy" },
@@ -32,14 +33,22 @@ export default function Navbar() {
     }`}>
       <Container className="h-full">
         <div className="flex items-center justify-between h-full">
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className={`relative w-10 h-10 rounded-xl overflow-hidden shadow-lg transition-transform duration-500 group-hover:rotate-12 ${scrolled ? 'scale-90' : 'scale-100'}`}>
-              <div className="absolute inset-0 bg-gradient-fluid animate-pulse" />
-              <div className="absolute inset-2 border-2 border-white/20 rounded-lg" />
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className={`relative transition-all duration-500 ${scrolled ? 'h-10' : 'h-14'}`}>
+              <img 
+                src="/image.png" 
+                alt="Digo Urja Bikas Logo" 
+                className="h-full w-auto object-contain transition-transform duration-500 group-hover:scale-110"
+              />
             </div>
-            <span className={`text-xl font-black tracking-tight transition-colors duration-500 text-navy`}>
-              DIGOURJA <span className="text-primary"></span>
-            </span>
+            <div className="flex flex-col justify-center">
+              <span className={`font-black tracking-tight text-navy transition-all duration-500 ${scrolled ? 'text-lg' : 'text-2xl'} leading-none`}>
+                DIGO URJA BIKAS
+              </span>
+              <span className={`font-bold tracking-[0.2em] text-primary transition-all duration-500 ${scrolled ? 'text-[8px]' : 'text-[10px]'} mt-1`}>
+                COMPANY PVT. LTD.
+              </span>
+            </div>
           </Link>
           
           <div className="hidden md:flex items-center gap-10 font-bold text-sm tracking-wide">
