@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import prisma from '../lib/prisma';
-import { sendEmail } from '../lib/mailer';
+import prisma from '../lib/prisma.js';
+import { sendEmail } from '../lib/mailer.js';
 
 const dummyContacts = [
   {

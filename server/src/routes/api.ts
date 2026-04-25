@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { getVacancies, createVacancy } from '../controllers/vacancyController';
-import { getNotices, createNotice } from '../controllers/noticeController';
-import { getContacts, submitContact, getMapInfo } from '../controllers/contactController';
+import { getVacancies, createVacancy } from '../controllers/vacancyController.js';
+import { getNotices, createNotice } from '../controllers/noticeController.js';
+import { getContacts, submitContact, getMapInfo } from '../controllers/contactController.js';
 
 const router = Router();
 
