@@ -29,13 +29,30 @@ export const getNotices = async (req: Request, res: Response) => {
 };
 
 export const createNotice = async (req: Request, res: Response) => {
-  const { title, content, fileUrl } = req.body;
+  const { title, content } = req.body;
+  let { fileUrl } = req.body;
+
+  if (!title || !content) {
+    return res.status(400).json({ error: "Title and content are required" });
+  }
+
+  // If a file was uploaded, use its path
+  if (req.file) {
+    // Construct the URL (e.g., http://localhost:5000/uploads/filename)
+    fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+  }
+
   try {
     const notice = await prisma.publicNotice.create({
       data: { title, content, fileUrl }
     });
+    console.log("Notice created successfully:", notice.id);
     res.status(201).json(notice);
   } catch (error) {
-    res.status(500).json({ error: "Failed to create public notice" });
+    console.error("Failed to create public notice in DB:", error);
+    res.status(500).json({ 
+      error: "Failed to create public notice",
+      details: error instanceof Error ? error.message : "Unknown error"
+    });
   }
 };

@@ -21,23 +21,43 @@ const dummyVacancies = [
 
 export const getVacancies = async (req: Request, res: Response) => {
   try {
-    // If DB is not connected, it will fail, so we wrap in try-catch and return dummy if needed
-    const vacancies = await prisma.vacancy.findMany();
-    res.json(vacancies.length > 0 ? vacancies : dummyVacancies);
+    const vacancies = await prisma.vacancy.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
+    // Return vacancies if found, otherwise return dummy data so the UI isn't empty
+    if (vacancies.length > 0) {
+      return res.json(vacancies);
+    }
+    console.log("No vacancies in DB, returning dummy data");
+    res.json(dummyVacancies);
   } catch (error) {
-    console.log("DB not connected, returning dummy data");
+    console.error("Error fetching vacancies from DB:", error);
     res.json(dummyVacancies);
   }
 };
 
 export const createVacancy = async (req: Request, res: Response) => {
   const { title, description, deadline } = req.body;
+  
+  if (!title || !description || !deadline) {
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+
   try {
     const vacancy = await prisma.vacancy.create({
-      data: { title, description, deadline: new Date(deadline) }
+      data: { 
+        title, 
+        description, 
+        deadline: new Date(deadline) 
+      }
     });
+    console.log("Vacancy created successfully:", vacancy.id);
     res.status(201).json(vacancy);
   } catch (error) {
-    res.status(500).json({ error: "Failed to create vacancy" });
+    console.error("Failed to create vacancy in DB:", error);
+    res.status(500).json({ 
+      error: "Failed to create vacancy",
+      details: error instanceof Error ? error.message : "Unknown error"
+    });
   }
 };

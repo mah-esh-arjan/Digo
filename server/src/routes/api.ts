@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { getVacancies, createVacancy } from '../controllers/vacancyController.js';
 import { getNotices, createNotice } from '../controllers/noticeController.js';
 import { getContacts, submitContact, getMapInfo } from '../controllers/contactController.js';
+import { upload } from '../middleware/upload.js';
 
 const router = Router();
 
@@ -11,7 +12,7 @@ router.post('/vacancies', createVacancy);
 
 // Notice routes
 router.get('/notices', getNotices);
-router.post('/notices', createNotice);
+router.post('/notices', upload.single('pdf'), createNotice);
 
 // Contact routes
 router.get('/contacts', getContacts);
