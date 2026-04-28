@@ -12,45 +12,53 @@ const AdminVacancies = () => {
   const [vacancies, setVacancies] = useState<Vacancy[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    deadline: ''
-  });
+  const [editingVacancy, setEditingVacancy] = useState<Vacancy | null>(null);
+  const [formData, setFormData] = useState({ title: '', description: '', deadline: '' });
   const [submitting, setSubmitting] = useState(false);
 
   const fetchVacancies = () => {
     setLoading(true);
     fetch('http://localhost:5000/api/vacancies')
       .then(res => res.json())
-      .then(data => {
-        setVacancies(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error(err);
-        setLoading(false);
-      });
+      .then(data => { setVacancies(data); setLoading(false); })
+      .catch(err => { console.error(err); setLoading(false); });
   };
 
-  useEffect(() => {
-    fetchVacancies();
-  }, []);
+  useEffect(() => { fetchVacancies(); }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const openAddModal = () => {
+    setEditingVacancy(null);
+    setFormData({ title: '', description: '', deadline: '' });
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (vacancy: Vacancy) => {
+    setEditingVacancy(vacancy);
+    setFormData({
+      title: vacancy.title,
+      description: vacancy.description,
+      deadline: new Date(vacancy.deadline).toISOString().split('T')[0],
+    });
+    setIsModalOpen(true);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const response = await fetch('http://localhost:5000/api/vacancies', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      const url = editingVacancy
+        ? `http://localhost:5000/api/vacancies/${editingVacancy.id}`
+        : 'http://localhost:5000/api/vacancies';
+      const method = editingVacancy ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
@@ -63,10 +71,21 @@ const AdminVacancies = () => {
         alert(`Error: ${errorData.error}`);
       }
     } catch (error) {
-      console.error('Failed to add vacancy:', error);
-      alert('Failed to add vacancy. Check console for details.');
+      console.error('Failed to save vacancy:', error);
+      alert('Failed to save vacancy.');
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    if (!confirm('Are you sure you want to delete this vacancy?')) return;
+    try {
+      const response = await fetch(`http://localhost:5000/api/vacancies/${id}`, { method: 'DELETE' });
+      if (response.ok) fetchVacancies();
+      else alert('Failed to delete vacancy.');
+    } catch (error) {
+      console.error('Failed to delete vacancy:', error);
     }
   };
 
@@ -78,7 +97,7 @@ const AdminVacancies = () => {
           <p className="text-slate-500">Manage career opportunities at Himalayan Energy.</p>
         </div>
         <button 
-          onClick={() => setIsModalOpen(true)}
+          onClick={openAddModal}
           className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
         >
           <Plus size={20} />
@@ -111,10 +130,10 @@ const AdminVacancies = () => {
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex gap-3">
-                    <button className="p-2 text-slate-400 hover:text-blue-600 transition-colors">
+                    <button onClick={() => openEditModal(vacancy)} className="p-2 text-slate-400 hover:text-blue-600 transition-colors">
                       <Edit size={18} />
                     </button>
-                    <button className="p-2 text-slate-400 hover:text-red-600 transition-colors">
+                    <button onClick={() => handleDelete(vacancy.id)} className="p-2 text-slate-400 hover:text-red-600 transition-colors">
                       <Trash2 size={18} />
                     </button>
                   </div>
@@ -130,7 +149,7 @@ const AdminVacancies = () => {
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
             <div className="flex justify-between items-center px-6 py-4 border-b border-slate-100">
-              <h2 className="text-xl font-bold text-slate-900">Add New Vacancy</h2>
+              <h2 className="text-xl font-bold text-slate-900">{editingVacancy ? 'Edit Vacancy' : 'Add New Vacancy'}</h2>
               <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-600">
                 <X size={24} />
               </button>
@@ -181,7 +200,7 @@ const AdminVacancies = () => {
                   disabled={submitting}
                   className="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:bg-blue-400"
                 >
-                  {submitting ? 'Creating...' : 'Create Vacancy'}
+                  {submitting ? 'Saving...' : editingVacancy ? 'Update Vacancy' : 'Create Vacancy'}
                 </button>
               </div>
             </form>

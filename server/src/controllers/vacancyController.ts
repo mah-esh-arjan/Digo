@@ -61,3 +61,29 @@ export const createVacancy = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const updateVacancy = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { title, description, deadline } = req.body;
+
+  try {
+    const vacancy = await prisma.vacancy.update({
+      where: { id: Number(id) },
+      data: { title, description, deadline: new Date(deadline) }
+    });
+    res.json(vacancy);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update vacancy' });
+  }
+};
+
+export const deleteVacancy = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    await prisma.vacancy.delete({ where: { id: Number(id) } });
+    res.json({ message: 'Vacancy deleted' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete vacancy' });
+  }
+};
