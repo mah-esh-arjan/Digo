@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model Vacancy {
@@ -28,5 +29,13 @@ model ContactUs {
   email     String
   phone     String?
   message   String
+  createdAt DateTime @default(now())
+}
+
+model GalleryImage {
+  id        Int      @id @default(autoincrement())
+  title     String
+  category  String
+  imageUrl  String
   createdAt DateTime @default(now())
 }

@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import AdminVacancies from './AdminVacancies';
 import AdminNotices from './AdminNotices';
 import AdminContacts from './AdminContacts';
+import AdminGallery from './AdminGallery';
 
 const DashboardOverview = () => (
   <div className="p-8">
@@ -39,6 +40,7 @@ const AdminDashboard = () => {
           <Route path="/vacancies" element={<AdminVacancies />} />
           <Route path="/notices" element={<AdminNotices />} />
           <Route path="/contacts" element={<AdminContacts />} />
+          <Route path="/gallery" element={<AdminGallery />} />
         </Routes>
       </main>
     </div>

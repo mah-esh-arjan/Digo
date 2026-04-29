@@ -1,53 +1,56 @@
-import { Container } from "@/components/layout/Container";
-import { FadeIn } from "@/components/animations/FadeIn";
-import { ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { ChevronRight, Home } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
 
 interface PageHeaderProps {
   title: string;
   subtitle?: string;
-  backgroundImage?: string;
+  breadcrumbs?: BreadcrumbItem[];
+  backgroundImage?: string; // kept for backwards compat, unused
 }
 
-export function PageHeader({ title, subtitle, backgroundImage = "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=1920&auto=format&fit=crop" }: PageHeaderProps) {
+export function PageHeader({ title, subtitle, breadcrumbs }: PageHeaderProps) {
+  const location = useLocation();
+
+  const crumbs: BreadcrumbItem[] = breadcrumbs ?? (() => {
+    const segments = location.pathname.split('/').filter(Boolean);
+    return segments.map((seg, i) => {
+      const label = seg.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+      const href = '/' + segments.slice(0, i + 1).join('/');
+      const isLast = i === segments.length - 1;
+      return isLast ? { label: title } : { label, href };
+    });
+  })();
+
   return (
-    <div className="relative h-[45vh] min-h-[400px] w-full flex items-center overflow-hidden">
-      {/* Background with parallax effect */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src={backgroundImage} 
-          className="w-full h-full object-cover scale-110"
-          alt={title}
-        />
-        <div className="absolute inset-0 bg-navy/70 backdrop-blur-[2px]" />
+    <div className="w-full border-b border-slate-200 bg-slate-50 pt-24 pb-6 px-4">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">{title}</h1>
+        {subtitle && <p className="text-slate-500 mb-3">{subtitle}</p>}
+
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-slate-500 flex-wrap">
+          <Link to="/" className="flex items-center gap-1 hover:text-slate-900 transition-colors">
+            <Home size={13} />
+            <span>Home</span>
+          </Link>
+          {crumbs.map((crumb, i) => (
+            <span key={i} className="flex items-center gap-1.5">
+              <ChevronRight size={13} className="text-slate-400" />
+              {crumb.href ? (
+                <Link to={crumb.href} className="hover:text-slate-900 transition-colors">
+                  {crumb.label}
+                </Link>
+              ) : (
+                <span className="text-slate-900 font-medium">{crumb.label}</span>
+              )}
+            </span>
+          ))}
+        </nav>
       </div>
-
-      <Container className="relative z-10 pt-20">
-        <FadeIn>
-          <div className="flex flex-col items-center text-center">
-            <h1 className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tighter uppercase italic">
-              {title}
-            </h1>
-            
-            <div className="flex items-center gap-3 text-sm font-bold tracking-widest text-white/60 uppercase">
-              <Link to="/" className="hover:text-primary transition-colors">Home</Link>
-              <ChevronRight size={14} className="text-primary" />
-              <span className="text-white">Pages</span>
-              <ChevronRight size={14} className="text-primary" />
-              <span className="text-primary">{title}</span>
-            </div>
-            
-            {subtitle && (
-              <p className="mt-8 text-xl text-white/80 max-w-2xl font-medium">
-                {subtitle}
-              </p>
-            )}
-          </div>
-        </FadeIn>
-      </Container>
-
-      {/* Dynamic bottom wave/edge */}
-      <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-white to-transparent" />
     </div>
   );
 }

@@ -3,8 +3,8 @@ import {
   LayoutDashboard, 
   Briefcase, 
   Bell, 
-  MessageSquare, 
-  Settings, 
+  MessageSquare,
+  Images,
   LogOut 
 } from 'lucide-react';
 
@@ -15,6 +15,7 @@ const AdminSidebar = () => {
     { name: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/admin' },
     { name: 'Vacancies', icon: <Briefcase size={20} />, path: '/admin/vacancies' },
     { name: 'Public Notices', icon: <Bell size={20} />, path: '/admin/notices' },
+    { name: 'Gallery', icon: <Images size={20} />, path: '/admin/gallery' },
     { name: 'Contact Inquiries', icon: <MessageSquare size={20} />, path: '/admin/contacts' },
   ];
 
