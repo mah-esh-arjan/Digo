@@ -4,12 +4,13 @@ import AdminVacancies from './AdminVacancies';
 import AdminNotices from './AdminNotices';
 import AdminContacts from './AdminContacts';
 import AdminGallery from './AdminGallery';
+import AdminApplications from './AdminApplications';
 
 const DashboardOverview = () => (
   <div className="p-8">
     <header className="mb-8">
       <h1 className="text-3xl font-bold text-slate-900">Dashboard</h1>
-      <p className="text-slate-500">Welcome to the Himalayan Energy CMS.</p>
+      <p className="text-slate-500">Welcome to the digourja CMS.</p>
     </header>
     
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -40,6 +41,7 @@ const AdminDashboard = () => {
           <Route path="/notices" element={<AdminNotices />} />
           <Route path="/contacts" element={<AdminContacts />} />
           <Route path="/gallery" element={<AdminGallery />} />
+          <Route path="/applications" element={<AdminApplications />} />
         </Routes>
       </main>
     </div>

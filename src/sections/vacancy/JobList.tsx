@@ -29,13 +29,20 @@ export default function JobList() {
 
   if (loading) return <div className="text-center p-12 text-gray-500">Loading vacancies...</div>;
   
-  if (jobs.length === 0) return <div className="text-center p-12 bg-white rounded-2xl border border-gray-100">No vacancies right now. Please check back later.</div>;
+  if (jobs.length === 0) return (
+    <div className="text-center py-16 bg-white rounded-2xl border border-gray-100">
+      <div className="text-5xl mb-4">📋</div>
+      <h3 className="text-xl font-bold text-navy mb-2">No Vacancies Available</h3>
+      <p className="text-gray-500">There are no open positions at the moment. Please check back later.</p>
+    </div>
+  );
   
   return (
     <StaggerGrid className="space-y-4">
       {jobs.map(job => (
         <JobCard 
-          key={job.id} 
+          key={job.id}
+          id={job.id}
           title={job.title}
           type="Full-Time" 
           location="Dolakha Site"

@@ -3,7 +3,8 @@ import { getVacancies, createVacancy, updateVacancy, deleteVacancy } from '../co
 import { getNotices, createNotice } from '../controllers/noticeController.js';
 import { getContacts, submitContact, getMapInfo } from '../controllers/contactController.js';
 import { getGalleryImages, createGalleryImage, deleteGalleryImage } from '../controllers/galleryController.js';
-import { upload, uploadImage } from '../middleware/upload.js';
+import { submitApplication, getApplications } from '../controllers/applicationController.js';
+import { upload, uploadImage, uploadCv } from '../middleware/upload.js';
 
 const router = Router();
 
@@ -26,5 +27,9 @@ router.delete('/gallery/:id', deleteGalleryImage);
 router.get('/contacts', getContacts);
 router.post('/contact-submit', submitContact);
 router.get('/map', getMapInfo);
+
+// Job applications
+router.post('/apply', uploadCv.single('cv'), submitApplication);
+router.get('/applications', getApplications);
 
 export default router;

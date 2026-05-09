@@ -2,11 +2,12 @@ import { Container } from "@/components/layout/Container";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { StaggerGrid, StaggerItem } from "@/components/animations/StaggerGrid";
 
-const data = [
+const data: { key: string; value: string; highlight?: boolean }[] = [
+  { key: "Project Name", value: "Kalinchowk Khola", highlight: true },
   { key: "Project Capacity", value: "3.00 MW" },
   { key: "Generated Energy", value: "16.96 GWh annually" },
   { key: "PPA Status", value: "Approved & Draft Unavailable" },
-  { key: "Completion Target", value: "15 Months" },
+  { key: "Completion Target", value: "2.5 Years" },
   { key: "Turbine Type", value: "Pelton" },
   { key: "Gross Head", value: "120m" }
 ];
@@ -32,13 +33,11 @@ export default function TechnicalHighlights() {
               {data.map((item, i) => (
                 <StaggerItem 
                   key={i} 
-                  className="group/row flex flex-col sm:flex-row justify-between p-6 md:p-8 hover:bg-gray-50/50 transition-all duration-300 relative overflow-hidden"
+                  className={`group/row flex flex-col sm:flex-row justify-between p-6 md:p-8 transition-all duration-300 relative overflow-hidden ${item.highlight ? 'bg-primary/5 hover:bg-primary/10' : 'hover:bg-gray-50/50'}`}
                 >
-                  {/* Fluid hover highlight */}
                   <div className="absolute inset-0 bg-gradient-to-r from-primary/[0.03] to-transparent -translate-x-[100%] group-hover/row:translate-x-0 transition-transform duration-500 ease-out" />
-                  
-                  <span className="font-bold text-gray-800 text-lg relative z-10 mb-2 sm:mb-0 group-hover/row:text-primary transition-colors duration-300">{item.key}</span>
-                  <span className="text-primary font-semibold text-lg relative z-10 group-hover/row:text-accent transition-colors duration-300">{item.value}</span>
+                  <span className={`font-bold text-lg relative z-10 mb-2 sm:mb-0 transition-colors duration-300 ${item.highlight ? 'text-primary' : 'text-gray-800 group-hover/row:text-primary'}`}>{item.key}</span>
+                  <span className={`font-semibold text-lg relative z-10 transition-colors duration-300 ${item.highlight ? 'text-green-500 font-black' : 'text-primary group-hover/row:text-accent'}`}>{item.value}</span>
                 </StaggerItem>
               ))}
             </StaggerGrid>

@@ -39,3 +39,14 @@ model GalleryImage {
   imageUrl  String
   createdAt DateTime @default(now())
 }
+
+model JobApplication {
+  id         Int      @id @default(autoincrement())
+  vacancyId  Int
+  name       String
+  email      String
+  phone      String?
+  message    String?
+  cvUrl      String
+  createdAt  DateTime @default(now())
+}

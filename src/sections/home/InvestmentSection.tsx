@@ -4,19 +4,21 @@ import { FadeIn, FadeInStagger } from "@/components/animations/FadeIn";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Download, TrendingUp, ShieldCheck, Zap, Coins, ArrowRight, BarChart3, Clock } from "lucide-react";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 
 const milestones = [
-  { year: "2023", event: "Project Survey & License Secured", status: "completed" },
-  { year: "2024", event: "Financial Closure & Site Access", status: "in-progress" },
-  { year: "2025", event: "Construction & Dam Erection", status: "upcoming" },
-  { year: "2026", event: "Commissioning & Generation", status: "upcoming" }
+  { year: "DONE", event: "Project Survey & License Secured", status: "completed" },
+  { year: "DONE", event: "Financial Closure & Site Access", status: "completed" },
+  { year: "DONE", event: "Construction & Dam Erection", status: "completed" },
+  // { year: "IN PROGRESS", event: "Commissioning & Generation", status: "upcoming" }
+  { year: "IN PROGRESS", event: "Commissioning & Generation", status: "in-progress" }
 ];
 
 const stats = [
-  { label: "Total Cost", value: "59.5 Cr", suffix: "NPR", icon: Coins, color: "text-accent" },
-  { label: "Capacity", value: "11.64", suffix: "MW", icon: Zap, color: "text-yellow-400" },
-  { label: "Payback Period", value: "6.5", suffix: "Years", icon: BarChart3, color: "text-green-400" },
-  { label: "Completion", value: "15", suffix: "Months", icon: Clock, color: "text-blue-400" }
+  { label: "Total Cost", value: "1.5 Cr", suffix: "NPR", icon: Coins, color: "text-accent" },
+  { label: "Capacity", value: "7.926", suffix: "MW", icon: Zap, color: "text-yellow-400" },
+  { label: "Payback Period", value: "2.5", suffix: "Years", icon: BarChart3, color: "text-green-400" },
+  { label: "Completion", value: "2.5", suffix: "Years", icon: Clock, color: "text-blue-400" }
 ];
 
 export default function InvestmentSection() {
@@ -52,8 +54,8 @@ export default function InvestmentSection() {
               Digo Urja Bikas offers a unique entry point into Nepal's surging energy market. With secured power purchase agreements and state-backed guarantees, we turn natural flow into sustainable financial growth.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="bg-white text-navy hover:bg-accent hover:text-navy rounded-full font-bold px-8 h-14 transition-all">
-                Invest Now <ArrowRight className="ml-2 w-5 h-5" />
+              <Button size="lg" asChild className="bg-white text-navy hover:bg-accent hover:text-navy rounded-full font-bold px-8 h-14 transition-all">
+                <Link to="/invest-now">Invest Now <ArrowRight className="ml-2 w-5 h-5" /></Link>
               </Button>
               <Button size="lg" variant="outline" className="border-white/10 glass-dark text-white rounded-full font-bold px-8 h-14 hover:bg-white/5">
                 <Download className="mr-2 w-5 h-5" /> Prospectus
@@ -93,7 +95,7 @@ export default function InvestmentSection() {
                   <div className="flex justify-between items-end">
                     <div>
                       <div className="text-[10px] text-accent uppercase font-black tracking-widest mb-1">Return on Equity</div>
-                      <div className="text-4xl font-black">18.5%</div>
+                      <div className="text-4xl font-black">17.5%</div>
                     </div>
                     <div className="w-24 h-12 flex items-end gap-1">
                       {[1,2,3,4,5,6].map((_, i) => (
@@ -125,6 +127,7 @@ export default function InvestmentSection() {
             </div>
             <div className="flex gap-4">
                <div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-accent" /> <span className="text-[10px] uppercase font-bold text-gray-400">Done</span></div>
+               <div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-accent/50 border border-accent animate-pulse" /> <span className="text-[10px] uppercase font-bold text-gray-400">In Progress</span></div>
                <div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full border border-accent" /> <span className="text-[10px] uppercase font-bold text-gray-400">Upcoming</span></div>
             </div>
           </div>

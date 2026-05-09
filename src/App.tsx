@@ -11,6 +11,7 @@ import AboutUs from "./pages/AboutUs";
 import Gallery from "./pages/Gallery";
 import Downloads from "./pages/Downloads";
 import ProjectDetail from "./pages/ProjectDetail";
+import InvestNow from "./pages/InvestNow";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
                   <Route path="/site-works-and-access" element={<SiteWorks />} />
                   <Route path="/vacancy" element={<Vacancy />} />
                   <Route path="/public-notice" element={<PublicNotice />} />
+                  <Route path="/invest-now" element={<InvestNow />} />
                 </Routes>
               </main>
               <Footer />

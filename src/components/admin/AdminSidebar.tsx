@@ -5,6 +5,7 @@ import {
   Bell, 
   MessageSquare,
   Images,
+  FileUser,
   LogOut 
 } from 'lucide-react';
 
@@ -14,6 +15,7 @@ const AdminSidebar = () => {
   const menuItems = [
     { name: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/admin' },
     { name: 'Vacancies', icon: <Briefcase size={20} />, path: '/admin/vacancies' },
+    { name: 'Applications', icon: <FileUser size={20} />, path: '/admin/applications' },
     { name: 'Public Notices', icon: <Bell size={20} />, path: '/admin/notices' },
     { name: 'Gallery', icon: <Images size={20} />, path: '/admin/gallery' },
     { name: 'Contact Inquiries', icon: <MessageSquare size={20} />, path: '/admin/contacts' },
@@ -22,7 +24,7 @@ const AdminSidebar = () => {
   return (
     <div className="w-64 bg-slate-900 text-white min-h-screen flex flex-col">
       <div className="p-6 border-b border-slate-800">
-        <h1 className="text-xl font-bold tracking-tight text-blue-400">Himalayan Energy</h1>
+        <h1 className="text-xl font-bold tracking-tight text-blue-400">Digourja </h1>
         <p className="text-xs text-slate-400 uppercase tracking-widest mt-1">Admin Panel</p>
       </div>
       
