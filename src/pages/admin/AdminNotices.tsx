@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Plus, Trash2, FileText, X } from 'lucide-react';
+import API_BASE from "@/lib/api";
 
 interface Notice {
   id: number;
@@ -22,7 +23,7 @@ const AdminNotices = () => {
 
   const fetchNotices = () => {
     setLoading(true);
-    fetch('http://localhost:5000/api/notices')
+    fetch(API_BASE + '/api/notices')
       .then(res => res.json())
       .then(data => {
         setNotices(data);
@@ -67,7 +68,7 @@ const AdminNotices = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/notices', {
+      const response = await fetch(API_BASE + '/api/notices', {
         method: 'POST',
         body: data, // No Content-Type header needed for FormData, browser handles it
       });

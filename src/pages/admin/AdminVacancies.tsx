@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Plus, Trash2, Edit, X } from 'lucide-react';
+import API_BASE from "@/lib/api";
 
 interface Vacancy {
   id: number;
@@ -18,7 +19,7 @@ const AdminVacancies = () => {
 
   const fetchVacancies = () => {
     setLoading(true);
-    fetch('http://localhost:5000/api/vacancies')
+    fetch(API_BASE + '/api/vacancies')
       .then(res => res.json())
       .then(data => { setVacancies(data); setLoading(false); })
       .catch(err => { console.error(err); setLoading(false); });
@@ -52,8 +53,8 @@ const AdminVacancies = () => {
     setSubmitting(true);
     try {
       const url = editingVacancy
-        ? `http://localhost:5000/api/vacancies/${editingVacancy.id}`
-        : 'http://localhost:5000/api/vacancies';
+        ? `${API_BASE}/api/vacancies/${editingVacancy.id}`
+        : API_BASE + '/api/vacancies';
       const method = editingVacancy ? 'PUT' : 'POST';
 
       const response = await fetch(url, {
@@ -81,7 +82,7 @@ const AdminVacancies = () => {
   const handleDelete = async (id: number) => {
     if (!confirm('Are you sure you want to delete this vacancy?')) return;
     try {
-      const response = await fetch(`http://localhost:5000/api/vacancies/${id}`, { method: 'DELETE' });
+      const response = await fetch(`${API_BASE}/api/vacancies/${id}`, { method: 'DELETE' });
       if (response.ok) fetchVacancies();
       else alert('Failed to delete vacancy.');
     } catch (error) {

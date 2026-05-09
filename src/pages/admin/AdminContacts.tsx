@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Mail, Phone, User, Calendar } from 'lucide-react';
+import API_BASE from "@/lib/api";
 
 interface Contact {
   id: number;
@@ -15,7 +16,7 @@ const AdminContacts = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/contacts')
+    fetch(API_BASE + '/api/contacts')
       .then(res => res.json())
       .then(data => {
         setContacts(data);

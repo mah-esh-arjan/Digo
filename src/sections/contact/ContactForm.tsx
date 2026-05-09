@@ -2,8 +2,8 @@ import { FadeIn } from "@/components/animations/FadeIn";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-
 import { useState } from "react";
+import API_BASE from "@/lib/api";
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -22,7 +22,7 @@ export default function ContactForm() {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/api/contact-submit', {
+      const response = await fetch(API_BASE + '/api/contact-submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),

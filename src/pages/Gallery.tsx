@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container } from "@/components/layout/Container";
 import { FadeIn } from "@/components/animations/FadeIn";
 import { PageHeader } from "@/components/ui/PageHeader";
+import API_BASE from "@/lib/api";
 
 const staticImages = [
   { src: "/digo1.jpeg", title: "Site Survey", category: "Exploration" },
@@ -16,10 +17,10 @@ export default function Gallery() {
   const [dynamicImages, setDynamicImages] = useState<{ src: string; title: string; category: string }[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/gallery')
+    fetch(API_BASE + '/api/gallery')
       .then(res => res.json())
       .then(data => setDynamicImages(data.map((img: { id: number; title: string; category: string; imageUrl: string }) => ({
-        src: `http://localhost:5000${img.imageUrl}`,
+        src: `${API_BASE}${img.imageUrl}`,
         title: img.title,
         category: img.category,
       }))))

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { StaggerGrid } from "@/components/animations/StaggerGrid";
 import JobCard from "./JobCard";
+import API_BASE from "@/lib/api";
 
 interface Vacancy {
   id: number;
@@ -14,7 +15,7 @@ export default function JobList() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/vacancies')
+    fetch(API_BASE + '/api/vacancies')
       .then(res => res.json())
       .then(data => {
         setJobs(data);

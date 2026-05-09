@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Plus, Trash2, X, ImageIcon } from 'lucide-react';
+import API_BASE from "@/lib/api";
 
 interface GalleryImage {
   id: number;
@@ -19,7 +20,7 @@ const AdminGallery = () => {
 
   const fetchImages = () => {
     setLoading(true);
-    fetch('http://localhost:5000/api/gallery')
+    fetch(API_BASE + '/api/gallery')
       .then(res => res.json())
       .then(data => { setImages(data); setLoading(false); })
       .catch(() => setLoading(false));
@@ -44,7 +45,7 @@ const AdminGallery = () => {
     body.append('image', file);
 
     try {
-      const res = await fetch('http://localhost:5000/api/gallery', { method: 'POST', body });
+      const res = await fetch(API_BASE + '/api/gallery', { method: 'POST', body });
       if (res.ok) {
         setIsModalOpen(false);
         setFormData({ title: '', category: '' });
@@ -63,7 +64,7 @@ const AdminGallery = () => {
 
   const handleDelete = async (id: number) => {
     if (!confirm('Delete this image?')) return;
-    const res = await fetch(`http://localhost:5000/api/gallery/${id}`, { method: 'DELETE' });
+    const res = await fetch(`${API_BASE}/api/gallery/${id}`, { method: 'DELETE' });
     if (res.ok) fetchImages();
     else alert('Failed to delete image.');
   };
@@ -98,7 +99,7 @@ const AdminGallery = () => {
           {images.map(img => (
             <div key={img.id} className="group relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 shadow-sm">
               <img
-                src={`http://localhost:5000${img.imageUrl}`}
+                src={`${API_BASE}${img.imageUrl}`}
                 alt={img.title}
                 className="w-full h-full object-cover"
               />

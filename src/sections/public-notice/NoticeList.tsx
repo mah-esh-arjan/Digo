@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { StaggerGrid } from "@/components/animations/StaggerGrid";
 import NoticeItem from "./NoticeItem";
+import API_BASE from "@/lib/api";
 
 interface Notice {
   id: number;
@@ -15,7 +16,7 @@ export default function NoticeList() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/notices')
+    fetch(API_BASE + '/api/notices')
       .then(res => res.json())
       .then(data => {
         setNotices(data);

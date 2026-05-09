@@ -1,4 +1,3 @@
-import React from 'react';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import { Routes, Route } from 'react-router-dom';
 import AdminVacancies from './AdminVacancies';
