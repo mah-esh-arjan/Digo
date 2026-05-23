@@ -1,6 +1,11 @@
 import { Request, Response } from 'express';
 import prisma from '../lib/prisma.js';
 import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const getGalleryImages = async (req: Request, res: Response) => {
   try {
@@ -35,8 +40,8 @@ export const deleteGalleryImage = async (req: Request, res: Response) => {
     const image = await prisma.galleryImage.findUnique({ where: { id: Number(id) } });
     if (!image) return res.status(404).json({ error: 'Image not found' });
 
-    // Delete file from disk
-    const filePath = '.' + image.imageUrl;
+    // Delete file from disk using absolute path
+    const filePath = path.join(__dirname, '../../uploads', image.imageUrl.replace('/uploads/', ''));
     if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
 
     await prisma.galleryImage.delete({ where: { id: Number(id) } });
