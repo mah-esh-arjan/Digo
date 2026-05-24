@@ -150,11 +150,11 @@ const HeroSection = React.forwardRef<HTMLDivElement, HeroSectionProps>(
               </motion.p>
               <Button
                 type="button"
+                size="lg"
                 onClick={() => {
                   window.location.href = callToAction.href;
                 }}
-                className="inline-flex items-center gap-2 text-lg font-bold tracking-widest text-white transition-colors rounded-full"
-                // variants={itemVariants}
+                className="inline-flex items-center gap-2 px-8 py-3 text-lg font-bold tracking-widest text-white bg-primary hover:bg-primary-dark rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5"
               >
                 {callToAction.text} →
               </Button>

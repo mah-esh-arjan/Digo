@@ -39,7 +39,7 @@ export const createNotice = async (req: Request, res: Response) => {
   // If a file was uploaded, use its path
   if (req.file) {
     // Construct the URL (e.g., http://localhost:5000/uploads/filename)
-    fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    fileUrl = `${req.protocol}://${req.get('host')}/uploads/pdf/${req.file.filename}`;
   }
 
   try {
