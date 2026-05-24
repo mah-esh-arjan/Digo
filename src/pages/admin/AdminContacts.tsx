@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Mail, Phone, User, Calendar } from 'lucide-react';
+import { Mail, Phone, User, Calendar, Trash2 } from 'lucide-react';
 import API_BASE from "@/lib/api";
 
 interface Contact {
@@ -15,7 +15,8 @@ const AdminContacts = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const fetchContacts = () => {
+    setLoading(true);
     fetch(API_BASE + '/api/contacts')
       .then(res => res.json())
       .then(data => {
@@ -26,7 +27,26 @@ const AdminContacts = () => {
         console.error(err);
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchContacts();
   }, []);
+
+  const handleDelete = async (id: number) => {
+    if (!confirm('Are you sure you want to delete this inquiry?')) return;
+    try {
+      const response = await fetch(API_BASE + `/api/contacts/${id}`, { method: 'DELETE' });
+      if (response.ok) {
+        fetchContacts();
+      } else {
+        alert('Failed to delete inquiry.');
+      }
+    } catch (error) {
+      console.error('Failed to delete inquiry:', error);
+      alert('Failed to delete inquiry.');
+    }
+  };
 
   return (
     <div className="p-8">
@@ -66,11 +86,8 @@ const AdminContacts = () => {
               </p>
             </div>
             <div className="flex md:flex-col justify-end gap-2">
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium">
-                Reply
-              </button>
-              <button className="text-slate-400 hover:text-red-600 transition-colors text-sm font-medium p-2">
-                Archive
+              <button onClick={() => handleDelete(contact.id)} className="p-2 text-slate-400 hover:text-red-600 transition-colors">
+                <Trash2 size={20} />
               </button>
             </div>
           </div>

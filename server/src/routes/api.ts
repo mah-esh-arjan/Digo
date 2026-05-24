@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { getVacancies, createVacancy, updateVacancy, deleteVacancy } from '../controllers/vacancyController.js';
 import { getNotices, createNotice, deleteNotice } from '../controllers/noticeController.js';
-import { getContacts, submitContact, getMapInfo } from '../controllers/contactController.js';
+import { getContacts, submitContact, deleteContact, getMapInfo } from '../controllers/contactController.js';
 import { getGalleryImages, createGalleryImage, deleteGalleryImage } from '../controllers/galleryController.js';
 import { submitApplication, getApplications } from '../controllers/applicationController.js';
 import { upload, uploadImage, uploadCv } from '../middleware/upload.js';
@@ -26,6 +26,7 @@ router.delete('/gallery/:id', deleteGalleryImage);
 
 // Contact routes
 router.get('/contacts', getContacts);
+router.delete('/contacts/:id', deleteContact);
 router.post('/contact-submit', submitContact);
 router.get('/map', getMapInfo);
 

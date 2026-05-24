@@ -36,17 +36,32 @@ export const submitContact = async (req: Request, res: Response) => {
       contact = { name, email, phone, message, id: Date.now() };
     }
 
-    // Send email notification
-    await sendEmail(
+    // Send email notification (non-blocking — don't fail if email fails)
+    sendEmail(
       process.env.SMTP_USER || 'admin@himalayan-energy.com',
       `New Contact Inquiry from ${name}`,
       `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`
-    );
+    ).catch(err => console.error('Email send failed (non-blocking):', err));
 
     res.status(201).json({ message: "Thank you for contacting us!", contact });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
+export const deleteContact = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const contact = await prisma.contactUs.findUnique({ where: { id: Number(id) } });
+    if (!contact) {
+      return res.status(404).json({ error: "Contact inquiry not found" });
+    }
+    await prisma.contactUs.delete({ where: { id: Number(id) } });
+    res.json({ message: "Contact inquiry deleted successfully" });
+  } catch (e) {
+    console.error("Failed to delete contact inquiry:", e);
+    res.status(500).json({ error: "Failed to delete contact inquiry" });
   }
 };
 
