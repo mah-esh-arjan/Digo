@@ -70,7 +70,7 @@ const AdminNotices = () => {
     try {
       const response = await fetch(API_BASE + '/api/notices', {
         method: 'POST',
-        body: data, // No Content-Type header needed for FormData, browser handles it
+        body: data,
       });
 
       if (response.ok) {
@@ -87,6 +87,21 @@ const AdminNotices = () => {
       alert('Failed to post notice. Check console for details.');
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    if (!confirm('Are you sure you want to delete this notice?')) return;
+    try {
+      const response = await fetch(API_BASE + `/api/notices/${id}`, { method: 'DELETE' });
+      if (response.ok) {
+        fetchNotices();
+      } else {
+        alert('Failed to delete notice.');
+      }
+    } catch (error) {
+      console.error('Failed to delete notice:', error);
+      alert('Failed to delete notice.');
     }
   };
 
@@ -138,7 +153,7 @@ const AdminNotices = () => {
               </div>
             </div>
             <div className="flex gap-2">
-              <button className="p-2 text-slate-400 hover:text-red-600 transition-colors">
+              <button onClick={() => handleDelete(notice.id)} className="p-2 text-slate-400 hover:text-red-600 transition-colors">
                 <Trash2 size={20} />
               </button>
             </div>

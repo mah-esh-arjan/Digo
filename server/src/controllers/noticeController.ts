@@ -56,3 +56,18 @@ export const createNotice = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const deleteNotice = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const notice = await prisma.publicNotice.findUnique({ where: { id: Number(id) } });
+    if (!notice) {
+      return res.status(404).json({ error: "Notice not found" });
+    }
+    await prisma.publicNotice.delete({ where: { id: Number(id) } });
+    res.json({ message: "Notice deleted successfully" });
+  } catch (e) {
+    console.error("Failed to delete notice:", e);
+    res.status(500).json({ error: "Failed to delete notice" });
+  }
+};
