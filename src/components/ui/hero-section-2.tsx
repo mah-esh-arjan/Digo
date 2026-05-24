@@ -1,6 +1,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { Button } from "./button";
 
 // Icon component for contact details
 const InfoIcon = ({ type }: { type: "website" | "phone" | "address" }) => {
@@ -129,31 +130,34 @@ const HeroSection = React.forwardRef<HTMLDivElement, HeroSectionProps>(
         {/* Left Side: Content */}
         <div className="flex w-full flex-col justify-between p-8 md:w-[40%] md:p-12 lg:p-16">
           {/* Top Section: Logo & Main Content */}
-          <div>
-            <motion.main variants={itemVariants}>
+          <div className="flex justify-center text-center">
+            <motion.main variants={itemVariants} className="text-center">
               <motion.h1
                 className="text-4xl font-bold leading-tight text-foreground md:text-5xl"
                 variants={itemVariants}
               >
                 {title}
               </motion.h1>
-              <motion.div
+              {/* <motion.div
                 className="my-6 h-1 w-20 bg-primary"
                 variants={itemVariants}
-              ></motion.div>
+              ></motion.div> */}
               <motion.p
-                className="mb-8 max-w-md text-base text-muted-foreground"
+                className="my-8 max-w-md text-base text-muted-foreground"
                 variants={itemVariants}
               >
                 {subtitle}
               </motion.p>
-              <motion.a
-                href={callToAction.href}
-                className="inline-flex items-center gap-2 text-lg font-bold tracking-widest text-primary transition-colors hover:text-primary/80"
-                variants={itemVariants}
+              <Button
+                type="button"
+                onClick={() => {
+                  window.location.href = callToAction.href;
+                }}
+                className="inline-flex items-center gap-2 text-lg font-bold tracking-widest text-white transition-colors rounded-full"
+                // variants={itemVariants}
               >
                 {callToAction.text} →
-              </motion.a>
+              </Button>
             </motion.main>
           </div>
 

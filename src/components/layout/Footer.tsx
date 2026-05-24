@@ -93,7 +93,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800 pt-8 text-center text-xs text-gray-500">
-          © {new Date().getFullYear()} Digo Urja Bikas Company Pvt. Ltd. All
+          © {new Date().getFullYear()} Trioplus technology  Pvt. Ltd. All
           rights reserved. Designed for Nepal.
         </div>
       </Container>

@@ -30,7 +30,7 @@ export const getNotices = async (req: Request, res: Response) => {
 
 export const createNotice = async (req: Request, res: Response) => {
   const { title, content } = req.body;
-  let { fileUrl } = req.body;
+  let fileUrl = (req.body as { fileUrl?: string }).fileUrl;
 
   if (!title || !content) {
     return res.status(400).json({ error: "Title and content are required" });
@@ -48,11 +48,11 @@ export const createNotice = async (req: Request, res: Response) => {
     });
     console.log("Notice created successfully:", notice.id);
     res.status(201).json(notice);
-  } catch (error) {
-    console.error("Failed to create public notice in DB:", error);
+  } catch (e) {
+    console.error("Failed to create public notice in DB:", e);
     res.status(500).json({ 
       error: "Failed to create public notice",
-      details: error instanceof Error ? error.message : "Unknown error"
+      details: e instanceof Error ? e.message : "Unknown error"
     });
   }
 };

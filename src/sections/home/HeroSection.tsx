@@ -17,7 +17,7 @@ export default function HomeHero() {
           For Nepal.
         </>
       }
-      subtitle="Digo Urja Bikas Company Pvt. Ltd. harnesses the pure power of the Kalinchowk Khola. Join us in flowing towards a sustainable, energy-rich tomorrow."
+      subtitle="Digo Urja Bikas Company Pvt. Ltd. harnesses the pure power of the Kalinchowk Khola. Join us in flowing towards a sustainable, energy-rich tomorrow. Enhancing Nepal’s energy security by utilizing renewable hydro resources. Empowering the nation with sustainable, reliable, and clean electricity."
       callToAction={{
         text: "EXPLORE INVESTMENT",
         href: "/project-details",

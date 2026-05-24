@@ -8,16 +8,16 @@ import { Link } from "react-router-dom";
 
 const milestones = [
   { year: "DONE", event: "Project Survey & License Secured", status: "completed" },
-  { year: "DONE", event: "Financial Closure & Site Access", status: "completed" },
-  { year: "DONE", event: "Construction & Dam Erection", status: "completed" },
+  { year: "IN PROGRESS", event: "Financial Closure & Site Access", status: "in-progress" },
+  { year: "IN PROGRESS", event: "Construction & Dam Erection", status: "in-progress" },
   // { year: "IN PROGRESS", event: "Commissioning & Generation", status: "upcoming" }
   { year: "IN PROGRESS", event: "Commissioning & Generation", status: "in-progress" }
 ];
 
 const stats = [
-  { label: "Total Cost", value: "1.5 Cr", suffix: "NPR", icon: Coins, color: "text-accent" },
+  { label: "Total Cost", value: "150 Cr", suffix: "NPR", icon: Coins, color: "text-accent" },
   { label: "Capacity", value: "7.926", suffix: "MW", icon: Zap, color: "text-yellow-400" },
-  { label: "Payback Period", value: "2.5", suffix: "Years", icon: BarChart3, color: "text-green-400" },
+  { label: "Payback Period", value: "10 +", suffix: "Years", icon: BarChart3, color: "text-green-400" },
   { label: "Completion", value: "2.5", suffix: "Years", icon: Clock, color: "text-blue-400" }
 ];
 
@@ -54,8 +54,14 @@ export default function InvestmentSection() {
               Digo Urja Bikas offers a unique entry point into Nepal's surging energy market. With secured power purchase agreements and state-backed guarantees, we turn natural flow into sustainable financial growth.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" asChild className="bg-white text-navy hover:bg-accent hover:text-navy rounded-full font-bold px-8 h-14 transition-all">
-                <Link to="/invest-now">Invest Now <ArrowRight className="ml-2 w-5 h-5" /></Link>
+              <Button
+                size="lg"
+                asChild
+                className="bg-white text-navy hover:bg-accent hover:text-navy rounded-full font-bold px-8 h-14 transition-all"
+              >
+                <Link to="/invest-now" className="inline-flex items-center">
+                  Invest Now <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
               </Button>
               <Button size="lg" variant="outline" className="border-white/10 glass-dark text-white rounded-full font-bold px-8 h-14 hover:bg-white/5">
                 <Download className="mr-2 w-5 h-5" /> Prospectus
