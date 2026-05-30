@@ -30,7 +30,11 @@ export default function AdminSidebar() {
           </Link>
         ))}
       </nav>
-      <div className="p-4 border-t border-slate-800">
+      <div className="p-4 border-t border-slate-800 space-y-2">
+        <Link href="/admin/logout" className="flex items-center gap-3 px-4 py-3 w-full text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg transition-colors">
+          <LogOut size={20} />
+          <span className="font-medium">Logout</span>
+        </Link>
         <Link href="/" className="flex items-center gap-3 px-4 py-3 w-full text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg transition-colors">
           <LogOut size={20} />
           <span className="font-medium">Back to Site</span>
