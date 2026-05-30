@@ -25,10 +25,13 @@ export default function JobCard({ id, title, type, location, date }: JobProps) {
       fd.append('message', form.message)
       fd.append('cv', cv)
       const res = await fetch('/api/admin/applications', { method: 'POST', body: fd })
-      if (!res.ok) throw new Error()
+      if (!res.ok) {
+        const body = await res.json().catch(() => null)
+        throw new Error(body?.error || 'Failed to submit application.')
+      }
       setSubmitted(true)
-    } catch {
-      alert('Failed to submit application.')
+    } catch (error) {
+      alert(error instanceof Error ? error.message : 'Failed to submit application.')
     } finally { setSubmitting(false) }
   }
 

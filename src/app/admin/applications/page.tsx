@@ -32,7 +32,7 @@ export default function AdminApplications() {
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   {app.message && <button onClick={() => setExpanded(expanded === idx ? null : idx)} className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-blue-600 border border-slate-200 hover:border-blue-300 px-3 py-1.5 rounded-lg"><MessageSquare size={13} />{expanded === idx ? 'Hide' : 'Message'}</button>}
-                  <a href={app.cvUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs font-semibold bg-blue-600 text-white hover:bg-blue-700 px-3 py-1.5 rounded-lg"><FileText size={13} /> View CV</a>
+                  <a href={app.cvUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs font-semibold bg-blue-600 text-white hover:bg-blue-700 px-3 py-1.5 rounded-lg"><FileText size={13} /> Download CV</a>
                 </div>
               </div>
               {expanded === idx && app.message && <div className="px-5 pb-5"><div className="bg-blue-50/40 border border-blue-100 rounded-xl p-4 text-sm text-slate-700 leading-relaxed">{app.message}</div></div>}

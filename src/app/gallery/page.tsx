@@ -1,18 +1,17 @@
-'use client'
+ 'use client'
 import { useState, useEffect } from 'react'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import { Container } from '@/components/layout/Container'
 import { FadeIn } from '@/components/animations/FadeIn'
 import { PageHeader } from '@/components/ui/PageHeader'
+import CloudinaryImage from '@/components/ui/CloudinaryImage'
 
 const staticImages = [
   { src: '/digo1.jpeg', title: 'Site Survey', category: 'Exploration' },
   { src: '/deigo2.jpeg', title: 'Construction Phase', category: 'Infrastructure' },
   { src: '/digo3.jpeg', title: 'Turbine Installation', category: 'Engineering' },
   { src: '/digo4.jpeg', title: 'Project completion', category: 'Infrastructure' },
-  { src: 'https://images.unsplash.com/photo-1541944743827-e04bb64ca638?q=80&w=800', title: 'Dam Structure', category: 'Construction' },
-  { src: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=800', title: 'Power Grid', category: 'Energy' },
 ]
 
 export default function Gallery() {
@@ -41,7 +40,7 @@ export default function Gallery() {
             {allImages.map((img, i) => (
               <FadeIn key={i} delay={i * 0.1}>
                 <div className="group relative aspect-[4/3] overflow-hidden rounded-[2rem] shadow-xl bg-gray-100 border border-gray-100 cursor-pointer">
-                  <img src={img.src} alt={img.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <CloudinaryImage src={img.src} alt={img.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width={800} height={600} />
                   <div className="absolute inset-0 bg-navy/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center p-6 text-center">
                     <span className="text-primary font-bold uppercase tracking-widest text-xs mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">{img.category}</span>
                     <h3 className="text-white text-2xl font-black translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">{img.title}</h3>

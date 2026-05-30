@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     const buffer = Buffer.from(await cv.arrayBuffer())
     const result = await new Promise<any>((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
-        { folder: 'digourja/cvs', resource_type: 'auto' },
+        { folder: 'digourja/cvs', resource_type: 'raw' },
         (error, result) => { if (error) reject(error); else resolve(result) }
       )
       uploadStream.end(buffer)
@@ -41,6 +41,8 @@ export async function POST(req: NextRequest) {
     })
     return NextResponse.json(application, { status: 201 })
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to submit application' }, { status: 500 })
+    const message = error instanceof Error ? error.message : String(error)
+    console.error('Application submit failed:', message, error)
+    return NextResponse.json({ error: message || 'Failed to submit application' }, { status: 500 })
   }
 }
