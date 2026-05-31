@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
 
+export const dynamic = 'force-dynamic'
+
 const ADMIN_COOKIE_NAME = 'admin-token'
 
 export async function POST() {

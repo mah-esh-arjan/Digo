@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { signJwt } from '@/lib/jwt'
 
+export const dynamic = 'force-dynamic'
+
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME ?? 'digourja'
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? 'Nepal12@34'
 const ADMIN_COOKIE_NAME = 'admin-token'
