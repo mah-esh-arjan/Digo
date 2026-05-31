@@ -18,7 +18,7 @@ export default function Gallery() {
   const [dynamicImages, setDynamicImages] = useState<{ src: string; title: string; category: string }[]>([])
 
   useEffect(() => {
-    fetch('/api/gallery')
+    fetch('/api/gallery', { cache: 'no-store', headers: { 'Cache-Control': 'no-cache' } })
       .then(res => res.json())
       .then(data => setDynamicImages(data.map((img: { imageUrl: string; title: string; category: string }) => ({ src: img.imageUrl, title: img.title, category: img.category }))))
       .catch(() => {})

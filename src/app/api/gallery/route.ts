@@ -6,7 +6,11 @@ export async function GET() {
   try {
     await dbConnect()
     const images = await GalleryImage.find({}).sort({ createdAt: -1 }).lean()
-    return NextResponse.json(images)
+    const response = NextResponse.json(images)
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0')
+    response.headers.set('Pragma', 'no-cache')
+    response.headers.set('Expires', '0')
+    return response
   } catch {
     return NextResponse.json([])
   }

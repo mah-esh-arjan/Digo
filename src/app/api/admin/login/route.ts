@@ -17,6 +17,9 @@ export async function POST(req: NextRequest) {
 
   const token = signJwt({ sub: username }, JWT_SECRET, 60 * 60 * 24)
   const response = NextResponse.json({ success: true })
+  response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0')
+  response.headers.set('Pragma', 'no-cache')
+  response.headers.set('Expires', '0')
   response.cookies.set({
     name: ADMIN_COOKIE_NAME,
     value: token,

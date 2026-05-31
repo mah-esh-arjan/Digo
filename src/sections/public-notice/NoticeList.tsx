@@ -10,7 +10,7 @@ export default function NoticeList() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/api/notices')
+    fetch('/api/notices', { cache: 'no-store', headers: { 'Cache-Control': 'no-cache' } })
       .then(res => res.json())
       .then(data => { setNotices(data); setLoading(false) })
       .catch(() => setLoading(false))

@@ -15,7 +15,7 @@ export default function AdminVacancies() {
 
   const fetchVacancies = () => {
     setLoading(true)
-    fetch('/api/vacancies').then(res => res.json()).then(data => { setVacancies(data); setLoading(false) }).catch(() => setLoading(false))
+    fetch('/api/vacancies', { cache: 'no-store', headers: { 'Cache-Control': 'no-cache' } }).then(res => res.json()).then(data => { setVacancies(data); setLoading(false) }).catch(() => setLoading(false))
   }
 
   useEffect(() => { fetchVacancies() }, [])

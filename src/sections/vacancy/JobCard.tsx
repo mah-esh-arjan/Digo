@@ -24,7 +24,7 @@ export default function JobCard({ id, title, type, location, date }: JobProps) {
       fd.append('phone', form.phone)
       fd.append('message', form.message)
       fd.append('cv', cv)
-      const res = await fetch('/api/admin/applications', { method: 'POST', body: fd })
+      const res = await fetch('/api/admin/applications', { method: 'POST', cache: 'no-store', headers: { 'Cache-Control': 'no-cache' }, body: fd })
       if (!res.ok) {
         const body = await res.json().catch(() => null)
         throw new Error(body?.error || 'Failed to submit application.')

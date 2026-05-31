@@ -30,7 +30,11 @@ export async function POST(req: NextRequest) {
     }
 
     const notice = await PublicNotice.create({ title, content, fileUrl })
-    return NextResponse.json(notice, { status: 201 })
+    const response = NextResponse.json(notice, { status: 201 })
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0')
+    response.headers.set('Pragma', 'no-cache')
+    response.headers.set('Expires', '0')
+    return response
   } catch (error) {
     return NextResponse.json({ error: 'Failed to create notice' }, { status: 500 })
   }

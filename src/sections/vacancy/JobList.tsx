@@ -10,7 +10,7 @@ export default function JobList() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('/api/vacancies')
+    fetch('/api/vacancies', { cache: 'no-store', headers: { 'Cache-Control': 'no-cache' } })
       .then(res => res.json())
       .then(data => { setJobs(data); setLoading(false) })
       .catch(() => setLoading(false))

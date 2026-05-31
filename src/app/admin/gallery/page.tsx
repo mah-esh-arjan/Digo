@@ -16,7 +16,7 @@ export default function AdminGallery() {
 
   const fetchImages = () => {
     setLoading(true)
-    fetch('/api/gallery').then(res => res.json()).then(data => { setImages(data); setLoading(false) }).catch(() => setLoading(false))
+    fetch('/api/gallery', { cache: 'no-store', headers: { 'Cache-Control': 'no-cache' } }).then(res => res.json()).then(data => { setImages(data); setLoading(false) }).catch(() => setLoading(false))
   }
 
   useEffect(() => { fetchImages() }, [])
@@ -31,7 +31,7 @@ export default function AdminGallery() {
       fd.append('title', formData.title)
       fd.append('category', formData.category)
       fd.append('image', file)
-      const res = await fetch('/api/admin/gallery', { method: 'POST', body: fd })
+      const res = await fetch('/api/admin/gallery', { method: 'POST', cache: 'no-store', headers: { 'Cache-Control': 'no-cache' }, body: fd })
       if (!res.ok) throw new Error()
       setIsModalOpen(false); setFormData({ title: '', category: '' }); setPreview(null); fetchImages()
     } catch { alert('Failed to upload.') } finally { setSubmitting(false) }

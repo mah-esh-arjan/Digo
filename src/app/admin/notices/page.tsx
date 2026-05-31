@@ -15,7 +15,7 @@ export default function AdminNotices() {
 
   const fetchNotices = () => {
     setLoading(true)
-    fetch('/api/notices').then(res => res.json()).then(data => { setNotices(data); setLoading(false) }).catch(() => setLoading(false))
+    fetch('/api/notices', { cache: 'no-store', headers: { 'Cache-Control': 'no-cache' } }).then(res => res.json()).then(data => { setNotices(data); setLoading(false) }).catch(() => setLoading(false))
   }
 
   useEffect(() => { fetchNotices() }, [])
@@ -27,7 +27,7 @@ export default function AdminNotices() {
       fd.append('title', formData.title)
       fd.append('content', formData.content)
       if (file) fd.append('pdf', file)
-      const res = await fetch('/api/admin/notices', { method: 'POST', body: fd })
+      const res = await fetch('/api/admin/notices', { method: 'POST', cache: 'no-store', headers: { 'Cache-Control': 'no-cache' }, body: fd })
       if (!res.ok) throw new Error()
       setIsModalOpen(false); setFormData({ title: '', content: '' }); setFile(null); fetchNotices()
     } catch { alert('Failed to post notice.') } finally { setSubmitting(false) }

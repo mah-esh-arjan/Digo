@@ -6,8 +6,8 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     Promise.all([
-      fetch('/api/vacancies').then(r => r.json()),
-      fetch('/api/notices').then(r => r.json()),
+      fetch('/api/vacancies', { cache: 'no-store', headers: { 'Cache-Control': 'no-cache' } }).then(r => r.json()),
+      fetch('/api/notices', { cache: 'no-store', headers: { 'Cache-Control': 'no-cache' } }).then(r => r.json()),
     ]).then(([vacancies, notices]) => {
       setStats({ vacancies: vacancies.length, notices: notices.length, contacts: 0 })
     })

@@ -39,7 +39,11 @@ export async function POST(req: NextRequest) {
       message: message || null,
       cvUrl: result.secure_url,
     })
-    return NextResponse.json(application, { status: 201 })
+    const response = NextResponse.json(application, { status: 201 })
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0')
+    response.headers.set('Pragma', 'no-cache')
+    response.headers.set('Expires', '0')
+    return response
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error)
     console.error('Application submit failed:', message, error)

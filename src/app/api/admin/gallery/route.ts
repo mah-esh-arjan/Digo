@@ -35,7 +35,11 @@ export async function POST(req: NextRequest) {
       imageUrl: result.secure_url,
       publicId: result.public_id,
     })
-    return NextResponse.json(image, { status: 201 })
+    const response = NextResponse.json(image, { status: 201 })
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0')
+    response.headers.set('Pragma', 'no-cache')
+    response.headers.set('Expires', '0')
+    return response
   } catch (error) {
     return NextResponse.json({ error: 'Failed to upload image' }, { status: 500 })
   }
