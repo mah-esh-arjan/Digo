@@ -8,11 +8,11 @@ export default function AboutUs() {
   return (
     <>
       <Navbar />
-      <div className="bg-white">
+      <main className="bg-white flex-1">
         <PageHeader title="About us" />
         <AboutPageContent />
         <LeadershipSection />
-      </div>
+      </main>
       <Footer />
     </>
   )

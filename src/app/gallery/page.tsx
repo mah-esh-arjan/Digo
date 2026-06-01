@@ -29,7 +29,7 @@ export default function Gallery() {
   return (
     <>
       <Navbar />
-      <div className="bg-white pb-24">
+      <main className="bg-white pb-24 flex-1">
         <PageHeader title="Gallery" />
         <Container className="mt-20">
           <FadeIn className="text-center mb-16">
@@ -50,7 +50,7 @@ export default function Gallery() {
             ))}
           </div>
         </Container>
-      </div>
+      </main>
       <Footer />
     </>
   )

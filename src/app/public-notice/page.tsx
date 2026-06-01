@@ -8,10 +8,10 @@ export default function PublicNotice() {
   return (
     <>
       <Navbar />
-      <div className="bg-white pb-24">
+      <main className="bg-white pb-24 flex-1">
         <PageHeader title="Public Notices" />
         <Container className="mt-20"><NoticeList /></Container>
-      </div>
+      </main>
       <Footer />
     </>
   )

@@ -13,14 +13,16 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <HeroSection />
-      <OverviewSection />
-      <InvestmentSection />
-      <WhyInvestSection />
-      <AboutSection />
-      <LeadershipSection />
-      <TechnicalHighlights />
-      <PartnersSection />
+      <main className="flex-1">
+        <HeroSection />
+        <OverviewSection />
+        <InvestmentSection />
+        <WhyInvestSection />
+        <AboutSection />
+        <LeadershipSection />
+        <TechnicalHighlights />
+        <PartnersSection />
+      </main>
       <Footer />
     </>
   )

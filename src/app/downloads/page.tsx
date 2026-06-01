@@ -17,7 +17,7 @@ export default function Downloads() {
   return (
     <>
       <Navbar />
-      <div className="bg-white pb-24">
+      <main className="bg-white pb-24 flex-1">
         <PageHeader title="Downloads" />
         <Container className="mt-20">
           <div className="max-w-4xl mx-auto">
@@ -40,7 +40,7 @@ export default function Downloads() {
             </div>
           </div>
         </Container>
-      </div>
+      </main>
       <Footer />
     </>
   )

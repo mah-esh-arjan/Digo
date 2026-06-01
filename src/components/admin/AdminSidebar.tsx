@@ -18,8 +18,17 @@ export default function AdminSidebar() {
   return (
     <div className="w-64 bg-slate-900 text-white min-h-screen flex flex-col">
       <div className="p-6 border-b border-slate-800">
-        <h1 className="text-xl font-bold tracking-tight text-blue-400">Digourja</h1>
-        <p className="text-xs text-slate-400 uppercase tracking-widest mt-1">Admin Panel</p>
+        <Link href="/" className="flex items-center gap-3 group">
+          <img
+            src="/logo.png"
+            alt="Digo Urja Bikas Logo"
+            className="w-10 h-10 rounded-lg bg-white p-1 shadow-lg transition-transform group-hover:scale-110"
+          />
+          <div className="flex flex-col">
+            <span className="text-lg font-bold leading-none text-white">DIGO URJA</span>
+            <span className="text-[8px] font-medium tracking-wider text-slate-400">ADMIN PANEL</span>
+          </div>
+        </Link>
       </div>
       <nav className="flex-1 p-4 space-y-2">
         {menuItems.map((item) => (

@@ -2,7 +2,6 @@
 import dbConnect from '@/lib/mongodb'
 import ContactUs from '@/lib/models/ContactUs'
 import { revalidatePath } from 'next/cache'
-import { sendEmail } from '@/lib/mailer'
 import validator from 'validator'
 import { headers } from 'next/headers'
 import { sanitizeString, validateString, validateEmail } from '@/lib/validation'
@@ -47,14 +46,6 @@ export async function submitContact(data: { name: string; email: string; message
 
   await dbConnect()
   const contact = await ContactUs.create({ name, email, message })
-
-  if (process.env.SMTP_USER && process.env.SMTP_PASS) {
-    sendEmail(
-      process.env.SMTP_USER,
-      `New Contact Inquiry from ${name}`,
-      `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
-    ).catch(err => console.error('Email send failed:', err))
-  }
 
   revalidatePath('/admin/contacts')
   return JSON.parse(JSON.stringify(contact))

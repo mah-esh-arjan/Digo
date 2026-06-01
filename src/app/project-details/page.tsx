@@ -32,7 +32,7 @@ export default function ProjectDetail() {
   return (
     <>
       <Navbar />
-      <div className="bg-white pb-32">
+      <main className="bg-white pb-32 flex-1">
         <PageHeader title={project.name} />
         <Container className="mt-20">
           <div className="grid lg:grid-cols-3 gap-12">
@@ -69,7 +69,7 @@ export default function ProjectDetail() {
             </FadeIn></div>
           </div>
         </Container>
-      </div>
+      </main>
       <Footer />
     </>
   )
