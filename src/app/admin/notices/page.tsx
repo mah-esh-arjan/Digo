@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { Plus, Trash2, FileText, X } from 'lucide-react'
 import { deleteNotice } from '@/app/actions/notices'
+import { FILE_SIZE_LIMITS } from '@/lib/validation'
 
 interface Notice { _id: string; title: string; content: string; fileUrl?: string; createdAt: string }
 
@@ -22,15 +23,33 @@ export default function AdminNotices() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); setSubmitting(true)
+    if (formData.title.trim().length < 2 || formData.title.trim().length > 200) {
+      alert('Title must be between 2 and 200 characters.')
+      setSubmitting(false)
+      return
+    }
+    if (formData.content.trim().length < 2 || formData.content.trim().length > 5000) {
+      alert('Content must be between 2 and 5000 characters.')
+      setSubmitting(false)
+      return
+    }
+    if (file && file.size > FILE_SIZE_LIMITS.pdf) {
+      alert(`PDF too large. Max allowed: ${(FILE_SIZE_LIMITS.pdf / 1024 / 1024).toFixed(0)} MB`)
+      setSubmitting(false)
+      return
+    }
     try {
       const fd = new FormData()
       fd.append('title', formData.title)
       fd.append('content', formData.content)
       if (file) fd.append('pdf', file)
       const res = await fetch('/api/admin/notices', { method: 'POST', cache: 'no-store', headers: { 'Cache-Control': 'no-cache' }, body: fd })
-      if (!res.ok) throw new Error()
+      if (!res.ok) {
+        const body = await res.json().catch(() => null)
+        throw new Error(body?.error || 'Failed to post notice.')
+      }
       setIsModalOpen(false); setFormData({ title: '', content: '' }); setFile(null); fetchNotices()
-    } catch { alert('Failed to post notice.') } finally { setSubmitting(false) }
+    } catch (e: any) { alert(e?.message || 'Failed to post notice.') } finally { setSubmitting(false) }
   }
 
   const handleDelete = async (id: string) => {

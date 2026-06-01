@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Plus, Trash2, X, ImageIcon } from 'lucide-react'
 import { deleteGalleryImage } from '@/app/actions/gallery'
+import { FILE_SIZE_LIMITS } from '@/lib/validation'
 
 interface GalleryImage { _id: string; title: string; category: string; imageUrl: string }
 
@@ -25,6 +26,14 @@ export default function AdminGallery() {
     e.preventDefault()
     const file = fileRef.current?.files?.[0]
     if (!file) return alert('Please select an image.')
+    if (file.size > FILE_SIZE_LIMITS.image) {
+      return alert(`Image too large. Max allowed: ${(FILE_SIZE_LIMITS.image / 1024 / 1024).toFixed(0)} MB`)
+    }
+    const allowedExts = ['.jpg', '.jpeg', '.png', '.webp']
+    const ext = '.' + (file.name.split('.').pop()?.toLowerCase() || '')
+    if (!allowedExts.includes(ext)) {
+      return alert(`Invalid image type. Allowed: ${allowedExts.join(', ')}`)
+    }
     setSubmitting(true)
     try {
       const fd = new FormData()
@@ -32,9 +41,12 @@ export default function AdminGallery() {
       fd.append('category', formData.category)
       fd.append('image', file)
       const res = await fetch('/api/admin/gallery', { method: 'POST', cache: 'no-store', headers: { 'Cache-Control': 'no-cache' }, body: fd })
-      if (!res.ok) throw new Error()
+      if (!res.ok) {
+        const body = await res.json().catch(() => null)
+        throw new Error(body?.error || 'Failed to upload.')
+      }
       setIsModalOpen(false); setFormData({ title: '', category: '' }); setPreview(null); fetchImages()
-    } catch { alert('Failed to upload.') } finally { setSubmitting(false) }
+    } catch (e: any) { alert(e?.message || 'Failed to upload.') } finally { setSubmitting(false) }
   }
 
   const handleDelete = async (id: string) => {

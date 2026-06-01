@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { StaggerItem } from '@/components/animations/StaggerGrid'
 import { MapPin, Briefcase, Clock, X, Upload } from 'lucide-react'
+import { FILE_SIZE_LIMITS } from '@/lib/validation'
 
 interface JobProps { id: string; title: string; type: string; location: string; date: string }
 
@@ -15,6 +16,14 @@ export default function JobCard({ id, title, type, location, date }: JobProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!cv) return alert('Please attach your CV.')
+    if (cv.size > FILE_SIZE_LIMITS.cv) {
+      return alert(`CV too large. Max allowed: ${(FILE_SIZE_LIMITS.cv / 1024 / 1024).toFixed(0)} MB`)
+    }
+    const allowedExts = ['.pdf', '.doc', '.docx']
+    const ext = '.' + (cv.name.split('.').pop()?.toLowerCase() || '')
+    if (!allowedExts.includes(ext)) {
+      return alert(`Invalid CV type. Allowed: ${allowedExts.join(', ')}`)
+    }
     setSubmitting(true)
     try {
       const fd = new FormData()

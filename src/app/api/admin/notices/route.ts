@@ -1,19 +1,42 @@
 import { NextRequest, NextResponse } from 'next/server'
 import dbConnect from '@/lib/mongodb'
 import PublicNotice from '@/lib/models/PublicNotice'
+import { rateLimit, getClientIP } from '@/lib/rate-limiter'
+import { sanitizeString, validateString, isValidFile } from '@/lib/validation'
 
 export const dynamic = 'force-dynamic'
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = getClientIP(req)
+    const limit = await rateLimit('upload', ip)
+    if (!limit.allowed) {
+      return NextResponse.json({ error: 'Rate limit exceeded. Try again later.' }, { status: 429 })
+    }
+
     await dbConnect()
     const formData = await req.formData()
-    const title = formData.get('title') as string
-    const content = formData.get('content') as string
+    const titleRaw = formData.get('title')
+    const contentRaw = formData.get('content')
     const file = formData.get('pdf') as File | null
+
+    if (!validateString(titleRaw, 2, 200)) {
+      return NextResponse.json({ error: 'Title is required (2–200 chars)' }, { status: 400 })
+    }
+    if (!validateString(contentRaw, 2, 5000)) {
+      return NextResponse.json({ error: 'Content is required (2–5000 chars)' }, { status: 400 })
+    }
+
+    const title = sanitizeString(titleRaw as string, 200)
+    const content = sanitizeString(contentRaw as string, 5000)
 
     let fileUrl: string | undefined
     if (file && file.size > 0) {
+      const validation = isValidFile(file, 'pdf')
+      if (!validation.valid) {
+        return NextResponse.json({ error: validation.reason }, { status: 400 })
+      }
+
       const { v2: cloudinary } = await import('cloudinary')
       cloudinary.config({
         cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -38,6 +61,7 @@ export async function POST(req: NextRequest) {
     response.headers.set('Expires', '0')
     return response
   } catch (error) {
+    console.error('Notice creation failed:', error)
     return NextResponse.json({ error: 'Failed to create notice' }, { status: 500 })
   }
 }

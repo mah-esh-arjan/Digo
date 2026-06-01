@@ -1,23 +1,52 @@
 import { NextRequest, NextResponse } from 'next/server'
 import dbConnect from '@/lib/mongodb'
 import JobApplication from '@/lib/models/JobApplication'
+import { rateLimit, getClientIP } from '@/lib/rate-limiter'
+import validator from 'validator'
+import { sanitizeString, validateString, validateEmail, isValidFile } from '@/lib/validation'
 
 export const dynamic = 'force-dynamic'
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = getClientIP(req)
+    const limit = await rateLimit('application', ip)
+    if (!limit.allowed) {
+      return NextResponse.json({ error: 'Rate limit exceeded. Try again later.' }, { status: 429 })
+    }
+
     await dbConnect()
     const formData = await req.formData()
-    const vacancyId = formData.get('vacancyId') as string
-    const name = formData.get('name') as string
-    const email = formData.get('email') as string
-    const phone = formData.get('phone') as string
-    const message = formData.get('message') as string
+    const vacancyIdRaw = formData.get('vacancyId')
+    const nameRaw = formData.get('name')
+    const emailRaw = formData.get('email')
+    const phoneRaw = formData.get('phone')
+    const messageRaw = formData.get('message')
     const cv = formData.get('cv') as File
 
-    if (!vacancyId || !name || !email || !cv) {
-      return NextResponse.json({ error: 'vacancyId, name, email and CV are required' }, { status: 400 })
+    if (!validateString(vacancyIdRaw, 1, 100)) {
+      return NextResponse.json({ error: 'Vacancy ID is required' }, { status: 400 })
     }
+    if (!validateString(nameRaw, 2, 100)) {
+      return NextResponse.json({ error: 'Name is required (2–100 chars)' }, { status: 400 })
+    }
+    if (!validateString(emailRaw, 5, 254) || !validateEmail(emailRaw as string)) {
+      return NextResponse.json({ error: 'Valid email is required' }, { status: 400 })
+    }
+    if (!cv) {
+      return NextResponse.json({ error: 'CV file is required' }, { status: 400 })
+    }
+
+    const validation = isValidFile(cv, 'cv')
+    if (!validation.valid) {
+      return NextResponse.json({ error: validation.reason }, { status: 400 })
+    }
+
+    const vacancyId = sanitizeString(vacancyIdRaw as string, 100)
+    const name = sanitizeString(nameRaw as string, 100)
+    const email = validator.normalizeEmail(sanitizeString(emailRaw as string, 254)) || sanitizeString(emailRaw as string, 254)
+    const phone = phoneRaw ? sanitizeString(phoneRaw as string, 20) : null
+    const message = messageRaw ? sanitizeString(messageRaw as string, 5000) : null
 
     const { v2: cloudinary } = await import('cloudinary')
     cloudinary.config({

@@ -6,7 +6,10 @@ const LOGIN_PATH = '/login'
 const ADMIN_API_LOGIN = '/api/admin/login'
 const ADMIN_API_LOGOUT = '/api/admin/logout'
 const ADMIN_TOKEN_NAME = 'admin-token'
-const JWT_SECRET = process.env.ADMIN_JWT_SECRET ?? 'digourja-admin-secret'
+const JWT_SECRET = process.env.ADMIN_JWT_SECRET as string
+if (!JWT_SECRET) {
+  throw new Error('ADMIN_JWT_SECRET environment variable is required')
+}
 const PUBLIC_FILE = /\.(.*)$/
 
 async function base64UrlDecode(value: string) {
