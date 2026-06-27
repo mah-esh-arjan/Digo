@@ -48,7 +48,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-gray-800 pt-8 text-center text-xs text-gray-500">
-          &copy; {new Date().getFullYear()} Trioplus technology Pvt. Ltd. All rights reserved. Designed for Nepal.
+          &copy; {new Date().getFullYear()} Digo Urja Nepal all right reserved. Developed by trioplus technology
         </div>
       </Container>
     </footer>
